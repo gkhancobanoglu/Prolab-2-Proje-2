@@ -1,0 +1,55 @@
+#define GREEN 2
+#define RED 11
+#include <Keypad.h>
+const byte Colm=3;
+const byte Rows=4;
+
+char KeyMatrix[Rows][Colm]={
+  {'1','2','3'},
+  {'4','5','6'},
+  {'7','8','9'},
+  {'*','0','#'}
+};
+byte rowPins[Rows]={7,6,5,4};
+byte ColmPins[Colm]={10,9,8};
+Keypad Lock=Keypad(makeKeymap(KeyMatrix),rowPins,ColmPins,Rows,Colm);
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(GREEN,OUTPUT);
+  digitalWrite(GREEN,LOW);
+  pinMode(RED,OUTPUT);
+  digitalWrite(RED,LOW);
+  Serial.begin(9600);
+}
+char Master[4]="1234";
+int Glosgow=0;
+char Compar[4]="";
+void loop() {
+  
+    char Key=Lock.getKey();
+    if(Key){Serial.println(Key);
+    Compar[Glosgow]=Key;
+    Glosgow++;
+    }
+   if(Glosgow<4){
+   }
+  
+  else
+  Compare();
+}
+void Compare(){
+  if (Compar[0]==Master[0] && Compar[1]==Master[1] && Compar[2]==Master[2] && Compar[3]==Master[3]){
+    digitalWrite(GREEN,HIGH);
+    digitalWrite(RED,LOW);
+    
+  }
+  else{
+    digitalWrite(GREEN,LOW);
+    digitalWrite(RED,HIGH);
+    delay(5000);
+    digitalWrite(RED,LOW);
+    delay(1000);
+    Glosgow=0;
+    loop();
+  }
+}
