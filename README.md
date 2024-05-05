@@ -27,3 +27,5 @@ This project aims to simulate a smart home system using Arduino. The simulation 
 - Defines a 4-digit security code.
 - The red LED lights up for incorrect code entries, and the green LED lights up for correct entries.
 
+![Proje Önizlemesi](image.png)
+
